@@ -431,3 +431,47 @@ a:hover { color: var(--accent-2); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+    /* ---------- Hero: світла тема ---------- */
+    [data-bs-theme="light"] .hero {
+      color: #0a1a10;
+      background-color: #dff1e5;
+      background-image:
+        radial-gradient(60% 55% at 85% 18%, rgba(255, 255, 255, .45), transparent 70%),
+        linear-gradient(115deg, rgba(242, 249, 244, .97) 0%, rgba(232, 246, 237, .86) 50%, rgba(214, 238, 223, .40) 100%),
+        url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    [data-bs-theme="light"] .hero::before {
+      background-image:
+        linear-gradient(rgba(21, 128, 61, .09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(21, 128, 61, .09) 1px, transparent 1px);
+    }
+
+    [data-bs-theme="light"] .hero h1 { color: #0a1a10; }
+    [data-bs-theme="light"] .hero h1 .text-glow { color: #15803d; text-shadow: none; }
+    [data-bs-theme="light"] .hero .lead { color: rgba(10, 26, 16, .78); }
+
+    [data-bs-theme="light"] .hero-eyebrow {
+      background: rgba(21, 128, 61, .10);
+      border-color: rgba(21, 128, 61, .35);
+      color: #166534;
+    }
+
+    [data-bs-theme="light"] .btn-glass {
+      color: #0a1a10;
+      background: rgba(255, 255, 255, .6);
+      border-color: rgba(21, 128, 61, .55);
+    }
+
+    [data-bs-theme="light"] .btn-glass:hover,
+    [data-bs-theme="light"] .btn-glass:focus-visible {
+      color: #052e16;
+      background: rgba(21, 128, 61, .16);
+      border-color: #15803d;
+    }
+
+    [data-bs-theme="light"] .hero-stats .stat-num { color: #15803d; text-shadow: none; }
+    [data-bs-theme="light"] .hero-stats .stat-label { color: rgba(10, 26, 16, .72); }
