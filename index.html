@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="uk" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Air — веб-галерея портфоліо для фотографів та дизайнерів.">
+ <title>Air — веб-галерея портфоліо</title>
+
+  <script>
+    (function () {
+      var theme = null;
+      try { theme = localStorage.getItem('sync-theme'); } catch (e) {}
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-bs-theme', theme);
+    })();
+  </script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <a class="visually-hidden-focusable position-absolute p-3 bg-body" href="#main">Перейти до основного змісту</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header sticky-top">
+    <nav class="navbar navbar-expand-lg" aria-label="Головна навігація">
+      <div class="container">
+        <a class="brand-logo navbar-brand m-0" href="#home" aria-label="Air — на початок сторінки">
+         <span class="brand-mark"><i class="bi bi-palette2" aria-hidden="true"></i></span>
+         <span class="brand-text">Air</span>
+       </a>
+        <div class="d-flex align-items-center gap-2 order-lg-3">
+          <button type="button" class="theme-toggle" id="themeToggle" aria-label="Перемкнути тему" title="Перемкнути тему">
+            <i class="bi bi-moon-stars-fill" id="themeIcon" aria-hidden="true"></i>
+          </button>
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Відкрити меню">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse order-lg-2 justify-content-lg-center" id="mainNav">
+          <ul class="navbar-nav gap-lg-1 py-3 py-lg-0">
+            <li class="nav-item"><a class="nav-link" href="#home">Головна</a></li>
+            <li class="nav-item"><a class="nav-link" href="#gallery">Галерея</a></li>
+            <li class="nav-item"><a class="nav-link" href="#add">Додати роботу</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">Про проєкт</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="home" aria-labelledby="heroTitle">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-lg-9 col-xl-8">
+            <span class="hero-eyebrow mb-4"><i class="bi bi-stars" aria-hidden="true"></i> Портфоліо фотографів і дизайнерів</span>
+            <h1 id="heroTitle" class="mb-4">Місце, де творчість стає видимою</h1>
+            <p class="lead mb-5">
+              Air збирає найкращі роботи з 3D-дизайну, фотографії, UI/UX та ілюстрації.
+              Знаходьте натхнення, оцінюйте роботи лайками та публікуйте власні проєкти за хвилину.
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="#gallery" class="btn btn-accent btn-lg rounded-pill px-4">
+                <i class="bi bi-images me-2" aria-hidden="true"></i>Перейти до галереї
+              </a>
+              <a href="#add" class="btn btn-glass btn-lg rounded-pill px-4">
+                <i class="bi bi-plus-circle me-2" aria-hidden="true"></i>Додати роботу
+              </a>
+            </div>
+
+            <div class="hero-stats" aria-label="Статистика галереї">
+              <div><div class="stat-num" id="statWorks">0</div><div class="stat-label">робіт у галереї</div></div>
+              <div><div class="stat-num" id="statAuthors">0</div><div class="stat-label">авторів</div></div>
+              <div><div class="stat-num" id="statLikes">0</div><div class="stat-label">лайків</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GALLERY ===================== -->
+    <section class="section" id="gallery" aria-labelledby="galleryTitle">
+      <div class="container">
+        <div class="text-center mb-5">
+          <span class="section-kicker">Галерея</span>
+          <h2 class="section-title display-6" id="galleryTitle">Роботи наших авторів</h2>
+          <p class="text-body-secondary mx-auto" style="max-width: 620px;">
+            Оберіть категорію або скористайтеся пошуком. Натисніть на картку, щоб переглянути роботу у великому форматі.
+          </p>
+        </div>
+
+        <div class="row g-3 align-items-center mb-3">
+          <div class="col-lg-8">
+            <div class="filter-bar" role="group" aria-label="Фільтр за категоріями" id="filterBar">
+              <button type="button" class="btn-filter active" data-filter="all" aria-pressed="true">Усі <span class="count" data-count="all">0</span></button>
+              <button type="button" class="btn-filter" data-filter="3D-дизайн" aria-pressed="false"><i class="bi bi-box" aria-hidden="true"></i>3D-дизайн <span class="count" data-count="3D-дизайн">0</span></button>
+              <button type="button" class="btn-filter" data-filter="Фотографія" aria-pressed="false"><i class="bi bi-camera" aria-hidden="true"></i>Фотографія <span class="count" data-count="Фотографія">0</span></button>
+              <button type="button" class="btn-filter" data-filter="UI/UX" aria-pressed="false"><i class="bi bi-window-sidebar" aria-hidden="true"></i>UI/UX <span class="count" data-count="UI/UX">0</span></button>
+              <button type="button" class="btn-filter" data-filter="Ілюстрація" aria-pressed="false"><i class="bi bi-brush" aria-hidden="true"></i>Ілюстрація <span class="count" data-count="Ілюстрація">0</span></button>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <label for="searchInput" class="visually-hidden">Пошук робіт</label>
+            <div class="input-group">
+              <span class="input-group-text bg-body"><i class="bi bi-search" aria-hidden="true"></i></span>
+              <input type="search" class="form-control" id="searchInput" placeholder="Пошук за назвою чи автором" autocomplete="off">
+            </div>
+          </div>
+        </div>
+
+        <p class="small text-body-secondary mb-4" id="galleryStatus" role="status" aria-live="polite"></p>
+
+        <div class="row g-4" id="galleryGrid"></div>
+
+        <div class="empty-state d-none" id="emptyState">
+          <i class="bi bi-emoji-frown" aria-hidden="true"></i>
+          <h3 class="h5 mt-3">Нічого не знайдено</h3>
+          <p class="text-body-secondary mb-3">Спробуйте змінити категорію чи пошуковий запит.</p>
+          <button type="button" class="btn btn-accent rounded-pill px-4" id="resetFilters">Скинути фільтри</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ADD WORK FORM ===================== -->
+    <section class="section section-alt" id="add" aria-labelledby="addTitle">
+      <div class="container">
+        <div class="text-center mb-5">
+          <span class="section-kicker">Нова робота</span>
+          <h2 class="section-title display-6" id="addTitle">Додайте свою роботу до галереї</h2>
+          <p class="text-body-secondary mx-auto" style="max-width: 620px;">
+            Заповніть форму — картка одразу з’явиться в галереї. Додані роботи зберігаються у вашому браузері.
+          </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+          <div class="col-lg-8">
+            <div class="form-card p-4 p-md-5 shadow-sm">
+              <form id="workForm" novalidate aria-describedby="formHint">
+                <p class="small text-body-secondary" id="formHint">Усі поля обов’язкові для заповнення.</p>
+
+                <div class="row g-3">
+                  <div class="col-md-7">
+                    <label for="workTitle" class="form-label">Назва роботи</label>
+                    <input type="text" class="form-control" id="workTitle" name="title" required minlength="3" maxlength="60" placeholder="Наприклад: Вечірнє місто" autocomplete="off">
+                    <div class="invalid-feedback" id="workTitleFeedback"></div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <label for="workAuthor" class="form-label">Автор</label>
+                    <input type="text" class="form-control" id="workAuthor" name="author" required minlength="2" maxlength="40" placeholder="Ім’я та прізвище" autocomplete="name">
+                    <div class="invalid-feedback" id="workAuthorFeedback"></div>
+                  </div>
+
+                  <div class="col-md-5">
+                    <label for="workCategory" class="form-label">Категорія</label>
+                    <select class="form-select" id="workCategory" name="category" required>
+                      <option value="" selected disabled>Оберіть категорію…</option>
+                      <option value="3D-дизайн">3D-дизайн</option>
+                      <option value="Фотографія">Фотографія</option>
+                      <option value="UI/UX">UI/UX</option>
+                      <option value="Ілюстрація">Ілюстрація</option>
+                    </select>
+                    <div class="invalid-feedback" id="workCategoryFeedback"></div>
+                  </div>
+
+                  <div class="col-md-7">
+                    <label for="workImage" class="form-label">Посилання на зображення</label>
+                    <input type="url" class="form-control" id="workImage" name="image" required placeholder="https://images.unsplash.com/..." autocomplete="off" inputmode="url">
+                    <div class="invalid-feedback" id="workImageFeedback"></div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="workDescription" class="form-label">Опис</label>
+                    <textarea class="form-control" id="workDescription" name="description" rows="4" required minlength="10" maxlength="400" placeholder="Коротко розкажіть про ідею, техніку та процес створення роботи"></textarea>
+                    <div class="d-flex justify-content-between">
+                      <div class="invalid-feedback" id="workDescriptionFeedback"></div>
+                      <div class="form-text ms-auto" id="descCounter">0 / 400</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                  <button type="submit" class="btn btn-accent rounded-pill px-4"><i class="bi bi-cloud-arrow-up me-2" aria-hidden="true"></i>Додати до галереї</button>
+                  <button type="reset" class="btn btn-outline-secondary rounded-pill px-4">Очистити</button>
+                  <button type="button" class="btn btn-link ms-auto text-decoration-none" id="fillExample"><i class="bi bi-magic me-1" aria-hidden="true"></i>Підставити приклад</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="form-card p-4 shadow-sm h-100">
+              <h3 class="h6 fw-bold mb-3"><i class="bi bi-eye me-2" aria-hidden="true"></i>Попередній перегляд</h3>
+              <div class="preview-box" id="previewBox">
+                <img id="previewImg" alt="Попередній перегляд зображення">
+                <div class="preview-placeholder p-3">
+                  <i class="bi bi-image fs-1 d-block mb-2" aria-hidden="true"></i>
+                  <span class="small" id="previewText">Вставте посилання на фото, щоб побачити перегляд</span>
+                </div>
+              </div>
+              <p class="small text-body-secondary mt-3 mb-0">
+                Порада: використовуйте пряме посилання на зображення (наприклад, з <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a>).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section" id="about" aria-labelledby="aboutTitle">
+      <div class="container">
+        <div class="text-center mb-5">
+          <span class="section-kicker">Про проєкт</span>
+          <h2 class="section-title display-6" id="aboutTitle">Що вміє Air</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="form-card p-4 h-100 text-center">
+              <span class="feature-icon mb-3"><i class="bi bi-funnel" aria-hidden="true"></i></span>
+              <h3 class="h5 fw-bold">Миттєва фільтрація</h3>
+              <p class="text-body-secondary mb-0">Категорії та пошук працюють без перезавантаження сторінки — усе виконується засобами JavaScript.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-card p-4 h-100 text-center">
+              <span class="feature-icon mb-3"><i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
+              <h3 class="h5 fw-bold">Лайтбокс-перегляд</h3>
+              <p class="text-body-secondary mb-0">Велике фото, детальний опис і навігація між роботами стрілками клавіатури або кнопками.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-card p-4 h-100 text-center">
+              <span class="feature-icon mb-3"><i class="bi bi-phone" aria-hidden="true"></i></span>
+              <h3 class="h5 fw-bold">Адаптивність і теми</h3>
+              <p class="text-body-secondary mb-0">Інтерфейс підлаштовується під будь-який екран, а світла чи темна тема запам’ятовується в браузері.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-center text-md-start">
+     <div class="brand-logo"><span class="brand-mark" style="width:32px;height:32px;font-size:.95rem;"><i class="bi bi-palette2" aria-hidden="true"></i></span><span class="brand-text">Air</span></div>
+     <p class="small text-body-secondary mb-0">&copy; <span id="year">2026</span> Air. Розробник: <span class="text-success fw-semibold">Бойко Артьом</span> | Курсова робота з дисципліни «Веб-технології».</p>
+      <a href="#home" class="small text-decoration-none"><i class="bi bi-arrow-up-circle me-1" aria-hidden="true"></i>Догори</a>
+    </div>
+  </footer>
+
+  <!-- ===================== LIGHTBOX MODAL ===================== -->
+  <div class="modal fade" id="workModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content overflow-hidden border-0">
+        <div class="modal-body p-0">
+          <div class="row g-0">
+            <div class="col-lg-7 modal-media">
+              <img id="modalImage" alt="">
+              <button type="button" class="modal-nav prev" id="modalPrev" aria-label="Попередня робота"><i class="bi bi-chevron-left" aria-hidden="true"></i></button>
+              <button type="button" class="modal-nav next" id="modalNext" aria-label="Наступна робота"><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+            </div>
+            <div class="col-lg-5 d-flex flex-column p-4 p-xl-5 modal-info">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <span class="badge rounded-pill text-bg-secondary fs-6 fw-semibold px-3 py-2" id="modalCategory"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+              </div>
+              <h2 class="h3 fw-bold" id="modalTitle"></h2>
+              <p class="text-body-secondary mb-4"><i class="bi bi-person-circle me-2" aria-hidden="true"></i><span id="modalAuthor"></span></p>
+              <h3 class="h6 text-uppercase text-body-secondary" style="letter-spacing:.08em;">Опис роботи</h3>
+              <p id="modalDescription" class="mb-4"></p>
+              <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">
+                <button type="button" class="btn-like btn-like-lg" id="modalLike" aria-pressed="false">
+                  <i class="bi bi-heart" aria-hidden="true"></i> <span>Лайк</span> <span class="like-count">0</span>
+                </button>
+                <button type="button" class="btn btn-outline-danger rounded-pill d-none" id="modalDelete"><i class="bi bi-trash me-1" aria-hidden="true"></i>Видалити</button>
+                <span class="small text-body-secondary ms-auto" id="modalCounter"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TOASTS ===================== -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+    <div id="appToast" class="toast align-items-center border-0 text-bg-dark" role="status" aria-live="polite" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastBody"></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрити"></button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <div class="container py-4"><div class="alert alert-warning">Для роботи галереї потрібно увімкнути JavaScript.</div></div>
+  </noscript>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
