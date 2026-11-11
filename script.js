@@ -6,9 +6,9 @@
   const CATEGORIES = ['3D-дизайн', 'Фотографія', 'UI/UX', 'Ілюстрація'];
 
   const STORAGE_KEYS = {
-    theme: 'Sync-theme',
-    custom: 'Sync-custom-works',
-    likes: 'Sync-liked-ids'
+    theme: 'Air-theme',
+    custom: 'Air-custom-works',
+    likes: 'Air-liked-ids'
   };
 
   const PLACEHOLDER_IMG = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
